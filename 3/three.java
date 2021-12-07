@@ -11,7 +11,7 @@ public class three {
 
     public static void main(String[] args) throws FileNotFoundException {
         part_one();
-        part_two(); //TODO: is wrong
+        part_two();
     }
 
     public static void part_one() throws FileNotFoundException {
