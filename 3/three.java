@@ -11,7 +11,7 @@ public class three {
 
     public static void main(String[] args) throws FileNotFoundException {
         part_one();
-        part_two();
+        part_two(); //TODO: is wrong
     }
 
     public static void part_one() throws FileNotFoundException {
@@ -61,24 +61,35 @@ public class three {
         }
 
         final int finalNumlines = numlines;
-        int oxygen = getRating(lines, pos1 -> occurences[pos1] >= finalNumlines - occurences[pos1] ? '1' : '0');
-        int co2 = getRating(lines, pos1 -> occurences[pos1] > finalNumlines - occurences[pos1] ? '0' : '1');
+        System.out.println("computing oxygen rating...");
+        int oxygen = getRating(lines, '1' , '0');
+        System.out.println("computing co2 rating...");
+        int co2 = getRating(lines, '0' , '1');
 
-        System.out.println(oxygen*co2);
+        System.out.println("oxygen: " + oxygen);
+        System.out.println("co2: " + co2);
+        System.out.println("sum: " + oxygen*co2);
 
     }
 
-    private static int getRating(List<char[]> lines, Function<Integer, Character> getBit) {
+    private static int getRating(List<char[]> lines, char trueBit, char falseBit) {
         List<char[]> oxyCandidates = List.copyOf(lines);
         int pos = 0;
+        int length = lines.get(0).length;
 
         while (oxyCandidates.size() > 1) {
-            char bit = getBit.apply(pos);
+            int[] occurences = new int[length];
+            for (char[] candidate : oxyCandidates) {
+                count(candidate, length, occurences);
+            }
+            char bit = occurences[pos] >= oxyCandidates.size() - occurences[pos] ? trueBit : falseBit;
             int finalPos = pos;
             oxyCandidates = oxyCandidates.stream().filter(candidate -> candidate[finalPos] == bit).collect(Collectors.toList());
             pos++;
         }
 
-        return Integer.parseInt(String.valueOf(oxyCandidates.get(0)), 2);
+        String binary = String.valueOf(oxyCandidates.get(0));
+        System.out.println(binary);
+        return Integer.parseInt(binary, 2);
     }
 }
