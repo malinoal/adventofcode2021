@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,13 +15,8 @@ class sixTest {
     }
 
     @Test
-    void lanternFish() throws FileNotFoundException {
-        assertEquals(5, six.lanternFish(3, 20));
-        assertEquals(7, six.lanternFish(List.of(4), 24));
-    }
-
-    @Test
-    void part_two() {
+    void part_two() throws FileNotFoundException {
+        assertEquals(new BigInteger("26984457539") , six.part_two("6/example.txt", 256));
     }
 
 }
